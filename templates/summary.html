@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Summary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .resume-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #d299c2, #fef9d7);
+            padding: 40px 30px;
+            color: #333;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .name {
+            font-size: 2.8em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info {
+            font-size: 1.1em;
+            color: #555;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .dob-info {
+            margin-top: 15px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Main Content */
+        .content {
+            padding: 40px 30px;
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 35px;
+            background: rgba(210, 153, 194, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(210, 153, 194, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            background: rgba(210, 153, 194, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(210, 153, 194, 0.15);
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #d299c2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            font-size: 1.2em;
+        }
+
+        .section-content {
+            color: #555;
+        }
+
+        /* Two Column Layout for certain sections */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        /* Skills specific styling */
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, #d299c2, #fef9d7);
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+            border: 1px solid rgba(210, 153, 194, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(210, 153, 194, 0.3);
+        }
+
+        /* Experience and Education entries */
+        .entry {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            border-left: 4px solid #d299c2;
+        }
+
+        .entry-header {
+            font-weight: 700;
+            color: #d299c2;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+
+        .entry-details {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* Projects styling */
+        .project {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            border-left: 4px solid #d299c2;
+            transition: all 0.3s ease;
+        }
+
+        .project:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(210, 153, 194, 0.2);
+        }
+
+        .project-title {
+            font-weight: 700;
+            color: #d299c2;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        /* Languages */
+        .languages {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .language {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #d299c2, #fef9d7);
+            color: #333;
+            border-radius: 20px;
+            font-weight: 500;
+            border: 1px solid rgba(210, 153, 194, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .language:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(210, 153, 194, 0.3);
+        }
+
+        /* Back button */
+        .back-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #d299c2, #fef9d7);
+            color: #333;
+            padding: 16px 32px;
+            text-decoration: none;
+            border-radius: 50px;
+            margin: 30px auto;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(210, 153, 194, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .back-btn:hover::before {
+            left: 100%;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(210, 153, 194, 0.4);
+        }
+
+        .navigation {
+            text-align: center;
+            padding: 30px;
+            background: rgba(210, 153, 194, 0.05);
+        }
+
+        /* Professional Summary styling */
+        .summary-content {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #555;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #d299c2;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                font-size: 12pt;
+                padding: 20px;
+            }
+            
+            .resume-container {
+                background: white;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .header {
+                background: #f8f8f8;
+                color: #333;
+            }
+            
+            .back-btn, .navigation {
+                display: none;
+            }
+            
+            .section:hover {
+                transform: none;
+            }
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .name {
+                font-size: 2.2em;
+            }
+            
+            .resume-container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #d299c2, #fef9d7);
+            color: #333;
+            padding: 15px 25px;
+            border-radius: 15px;
+            z-index: 1000;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(210, 153, 194, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { 
+                transform: translateX(100%); 
+                opacity: 0; 
+            }
+            to { 
+                transform: translateX(0); 
+                opacity: 1; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1 class="name">{{ resume.name }}</h1>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📧</span>
+                    <span>{{ resume.email }}</span>
+                </div>
+                <div class="contact-item">
+                    <span>📱</span>
+                    <span>{{ resume.phone }}</span>
+                </div>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span>{{ resume.address }}</span>
+                </div>
+                {% if resume.linkedin %}
+                <div class="contact-item">
+                    <span>💼</span>
+                    <span>{{ resume.linkedin }}</span>
+                </div>
+                {% endif %}
+            </div>
+            {% if resume.dob %}
+            <div class="dob-info">
+                Date of Birth: {{ resume.dob }}
+            </div>
+            {% endif %}
+        </header>
+
+        <div class="content">
+            <!-- Professional Summary or Interests -->
+            {% if resume.interest %}
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🎯</span>
+                    Professional Summary
+                </h2>
+                <div class="summary-content">
+                    <p>{{ resume.interest }}</p>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Main Content Area -->
+            <div class="two-column">
+                <!-- Left Column -->
+                <div>
+                    <!-- Experience Section -->
+                    {% if resume.experience %}
+                    <section class="section">
+                        <h2 class="section-title">
+                            <span class="section-icon">💼</span>
+                            Experience
+                        </h2>
+                        <div class="section-content">
+                            <div class="entry">
+                                <div class="entry-header">Professional Experience</div>
+                                <div class="entry-details">{{ resume.experience }}</div>
+                            </div>
+                        </div>
+                    </section>
+                    {% endif %}
+
+                    <!-- Education Section -->
+                    {% if resume.education %}
+                    <section class="section">
+                        <h2 class="section-title">
+                            <span class="section-icon">🎓</span>
+                            Education
+                        </h2>
+                        <div class="section-content">
+                            <div class="entry">
+                                <div class="entry-header">Educational Background</div>
+                                <div class="entry-details">{{ resume.education }}</div>
+                            </div>
+                        </div>
+                    </section>
+                    {% endif %}
+
+                    <!-- Projects Section -->
+                    {% if resume.projects %}
+                    <section class="section">
+                        <h2 class="section-title">
+                            <span class="section-icon">🚀</span>
+                            Projects
+                        </h2>
+                        <div class="section-content">
+                            <div class="project">
+                                <div class="project-title">Key Projects</div>
+                                <p>{{ resume.projects }}</p>
+                            </div>
+                        </div>
+                    </section>
+                    {% endif %}
+                </div>
+
+                <!-- Right Column -->
+                <div>
+                    <!-- Skills Section -->
+                    {% if resume.skills %}
+                    <section class="section">
+                        <h2 class="section-title">
+                            <span class="section-icon">⚡</span>
+                            Skills
+                        </h2>
+                        <div class="section-content">
+                            <div class="skills-list">
+                                <!-- If skills are comma-separated, they'll display as tags -->
+                                {% set skills_list = resume.skills.split(',') %}
+                                {% for skill in skills_list %}
+                                <span class="skill-tag">{{ skill.strip() }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+                    {% endif %}
+
+                    <!-- Certifications Section -->
+                    {% if resume.certification %}
+                    <section class="section">
+                        <h2 class="section-title">
+                            <span class="section-icon">🏆</span>
+                            Certifications
+                        </h2>
+                        <div class="section-content">
+                            <div class="entry">
+                                <div class="entry-details">{{ resume.certification }}</div>
+                            </div>
+                        </div>
+                    </section>
+                    {% endif %}
+
+                    <!-- Languages Section -->
+                    {% if resume.languages %}
+                    <section class="section">
+                        <h2 class="section-title">
+                            <span class="section-icon">🌍</span>
+                            Languages
+                        </h2>
+                        <div class="section-content">
+                            <div class="languages">
+                                {% set lang_list = resume.languages.split(',') %}
+                                {% for language in lang_list %}
+                                <span class="language">{{ language.strip() }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="{{ url_for('index') }}" class="back-btn">← Back to Resume Builder</a>
+        </div>
+    </div>
+
+    <script>
+        // Replace alert with a subtle notification
+        document.addEventListener('DOMContentLoaded', function() {
+            const notification = document.createElement('div');
+            notification.innerHTML = '✅ Resume saved successfully!';
+            notification.className = 'notification';
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
